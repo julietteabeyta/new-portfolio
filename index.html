@@ -4,35 +4,51 @@
 		<meta charset="utf-8">
 		<title>My first three.js app</title>
 		<style>
-			body { margin: 0; }
+			body { margin: 0; position: relative;}
 		</style>
 	</head>
 	<body>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/tween.js/16.7.0/Tween.js'></script>
 		<script type="module">
       import * as THREE from '../node_modules/three/src/Three.js';
-      const renderer = new THREE.WebGLRenderer();
-      renderer.setSize( window.innerWidth, window.innerHeight );
-      document.body.appendChild( renderer.domElement );
+      let container;
+      let camera, scene, renderer, stats;
+      let dodecahedron;
 
-      const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500 );
-      camera.position.set( 0, 0, 100 );
+      const render = () => {
+        renderer.render( scene, camera );
+      };
 
-      const scene = new THREE.Scene();
-      scene.background = new THREE.Color( 0xffffff );
-      const material = new THREE.LineBasicMaterial( { color: 0xff0000 } );
-      const radius = 25;
-      const detail = 1;
-      material.transparent = true;
-      material.opacity = .3;
-      const geometry = new THREE.DodecahedronBufferGeometry(radius, detail);
-      const line = new THREE.Line( geometry, material );
-      scene.add( line );
-      renderer.render( scene, camera );
+      const init = () => {
+        camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500 );
+        camera.position.set( 0, 0, 100 );
+
+        scene = new THREE.Scene();
+        scene.background = new THREE.Color(0xffffff);
+        const material = new THREE.LineBasicMaterial( { color: 0xff0000 } );
+        const radius = 25;
+        const detail = 1;
+        material.transparent = true;
+        material.opacity = .1;
+        const geometry = new THREE.DodecahedronBufferGeometry(radius, detail);
+        dodecahedron = new THREE.Line(geometry, material);
+        scene.add( dodecahedron );
+
+        container = document.createElement('div');
+        container.style.position = 'absolute';
+        document.body.appendChild(container);
+
+        renderer = new THREE.WebGLRenderer();
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        container.appendChild( renderer.domElement );
+        render();
+      }
+      init();
 
       const animate = (event) => {
         let count = 0;
-        const x = event.screenX / 100;
-        const y = event.screenY / 100;
+        const x = event && event.screenX / 100;
+        const y = event && event.screenY / 100;
 
         scene.traverse( ( child ) => {
           child.rotation.x = count + ( x / 3 );
@@ -43,7 +59,6 @@
 
         renderer.render( scene, camera );
       }
-      window.addEventListener("mousemove", animate, 300);
 
       const onWindowResize = () => {
         camera.aspect = window.innerWidth / window.innerHeight;
@@ -52,6 +67,20 @@
         renderer.setSize(window.innerWidth, window.innerHeight );
       };
       window.addEventListener('resize', onWindowResize, false );
+
+      // Tween is hella slowing us down
+
+      // const animate = (e) => {
+      //   const x = event && event.screenX / 300;
+      //   const z = event && event.screenY / 300;
+      //   var tween = new TWEEN.Tween(dodecahedron.rotation).to({x, y: 0, z}, 3500).start()
+      //   tween.easing(TWEEN.Easing.Exponential.Out);
+      //   requestAnimationFrame(animate)
+      //   TWEEN.update()
+      //   render();
+      // }
+      window.addEventListener("mousemove", animate, 300);
+
     </script>
 	</body>
 </html>
