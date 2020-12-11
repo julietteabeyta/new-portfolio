@@ -4,11 +4,23 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "react": "^16.4.1",
+    "react-dom": "^16.4.1",
+    "react-scripts": "1.1.4",
+    "react-svg": "^11.1.4",
     "three": "^0.123.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "css-loader": "^5.0.1",
+    "node-sass": "^4.14.1",
+    "parcel-bundler": "^1.12.4",
+    "sass-loader": "^10.1.0",
+    "style-loader": "^2.0.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "parcel src/index.html --open",
+    "build": "parcel build src/index.html",
+    "clean": "rm -rf dist/*"
   },
   "repository": {
     "type": "git",
