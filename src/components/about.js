@@ -1,0 +1,41 @@
+import React from "react";
+
+export default function About() {
+  return (
+    <div className="about section" >
+      <div className="about-text">
+        <div>
+          <p>
+            I'm a full-stack developer based in Los Angeles, California. I work on a multidisciplinary team of engineering at{" "}
+            <a
+              href="https://evgo.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-describedby="link-new-window"
+            >
+              <b>EVgo</b>
+            </a>
+          .
+        </p>
+          <p>
+            In my three years of slinging code, I have gained proficiencies in
+            various languages, specializing in JavaScript. I love writing
+            scalable, modular applications, and learning/optimizing along the
+            way.
+          </p>
+          <p>
+            I am deeply passionate about expanding my knowledge in myriad
+            disciplines. In addition to development, I have started a small{" "}
+            blog in which I exercise broadening my
+            knowledge on various topics. I also enjoy reading, cooking good vegan
+            food, and taking long walks on the beach. And I am always looking to {' '}
+            <a href="#contact">connect</a>!
+          </p>
+        </div>
+      </div>
+      <span id="link-new-window" hidden>
+        Opens in a new window
+      </span>
+    </div >
+  )
+}
