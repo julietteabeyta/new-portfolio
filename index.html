@@ -8,7 +8,6 @@
 		</style>
 	</head>
 	<body>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/tween.js/16.7.0/Tween.js'></script>
 		<script type="module">
       import * as THREE from '../node_modules/three/src/Three.js';
       let container;
@@ -16,12 +15,12 @@
       let dodecahedron;
 
       const render = () => {
-        renderer.render( scene, camera );
+        renderer.render(scene, camera);
       };
 
       const init = () => {
-        camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 500 );
-        camera.position.set( 0, 0, 100 );
+        camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 500);
+        camera.position.set(0, 0, 100);
 
         scene = new THREE.Scene();
         scene.background = new THREE.Color(0xffffff);
@@ -35,7 +34,6 @@
         scene.add( dodecahedron );
 
         container = document.createElement('div');
-        container.style.position = 'absolute';
         document.body.appendChild(container);
 
         renderer = new THREE.WebGLRenderer();
@@ -45,42 +43,41 @@
       }
       init();
 
-      const animate = (event) => {
-        let count = 0;
-        const x = event && event.screenX / 100;
-        const y = event && event.screenY / 100;
-
-        scene.traverse( ( child ) => {
-          child.rotation.x = count + ( x / 3 );
-          child.rotation.z = count + ( y / 4 );
-
-          count ++;
-        });
-
-        renderer.render( scene, camera );
+      const lerp = (min, max, t) => min * (1 - t) + max * t;
+      const previous = {
+        x: 0,
+        y: 0
       }
+      const target = {
+        x: 0,
+        y: 0
+      }
+
+      const onMouseMove = (event) => {
+        target.x = event && event.screenX / 500;
+        target.y = event && event.screenY / 500;
+      }
+
+      window.addEventListener("mousemove", onMouseMove, 300);
+      const animate = () => {
+        previous.x = lerp(previous.x, target.x, .05)
+        previous.y = lerp(previous.y, target.y, .05)
+
+        dodecahedron.rotation.z = previous.x
+        dodecahedron.rotation.x = previous.y
+
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      }
+      animate();
 
       const onWindowResize = () => {
         camera.aspect = window.innerWidth / window.innerHeight;
         camera.updateProjectionMatrix();
 
-        renderer.setSize(window.innerWidth, window.innerHeight );
+        renderer.setSize(window.innerWidth, window.innerHeight);
       };
-      window.addEventListener('resize', onWindowResize, false );
-
-      // Tween is hella slowing us down
-
-      // const animate = (e) => {
-      //   const x = event && event.screenX / 300;
-      //   const z = event && event.screenY / 300;
-      //   var tween = new TWEEN.Tween(dodecahedron.rotation).to({x, y: 0, z}, 3500).start()
-      //   tween.easing(TWEEN.Easing.Exponential.Out);
-      //   requestAnimationFrame(animate)
-      //   TWEEN.update()
-      //   render();
-      // }
-      window.addEventListener("mousemove", animate, 300);
-
+      window.addEventListener('resize', onWindowResize, false);
     </script>
 	</body>
 </html>
