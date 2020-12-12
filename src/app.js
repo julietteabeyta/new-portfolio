@@ -37,7 +37,7 @@ const IndexPage = () => {
       material.opacity = .2;
       const geometry = new THREE.DodecahedronBufferGeometry(radius, detail);
       dodecahedron = new THREE.Line(geometry, material);
-      scene.add( dodecahedron );
+      scene.add(dodecahedron);
 
       container = document.createElement('div');
       container.setAttribute('id', 'three-js-container');
@@ -69,6 +69,32 @@ const IndexPage = () => {
 
     window.addEventListener("mousemove", onMouseMove, 300);
     const animate = () => {
+      if (window.scrollY <= 200) {
+        const position = { x : 0, y: 0 };
+        const targetPosition = { x : 0, y: 0 };
+        position.x = lerp(dodecahedron.position.x, targetPosition.x, .07)
+        position.y = lerp(dodecahedron.position.y, targetPosition.y, .07)
+        dodecahedron.position.x = position.x;
+        dodecahedron.position.y = position.y;
+
+        let scale = 0;
+        const targetScale = 1;
+        scale = lerp(dodecahedron.scale.x, targetScale, .07);
+        dodecahedron.scale.set(scale, scale, scale);
+
+      } else {
+        const position = { x : 0, y: 0 };
+        const targetPosition = { x : 40, y: 0 };
+        position.x = lerp(dodecahedron.position.x, targetPosition.x, .07)
+        position.y = lerp(dodecahedron.position.y, targetPosition.y, .07)
+        dodecahedron.position.x = position.x;
+        dodecahedron.position.y = position.y;
+
+        let scale = 0;
+        const targetScale = .5;
+        scale = lerp(dodecahedron.scale.x, targetScale, .07);
+        dodecahedron.scale.set(scale, scale, scale);
+      }
       previous.x = lerp(previous.x, target.x, .05)
       previous.y = lerp(previous.y, target.y, .05)
 
