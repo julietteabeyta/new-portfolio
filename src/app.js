@@ -13,7 +13,6 @@ import linkedIn from './images/linkedIn.svg';
 import github from './images/github.svg';
 import codepen from './images/codepen.svg';
 
-
 const IndexPage = () => {
   useEffect(() => {
     let container;
@@ -59,8 +58,6 @@ const IndexPage = () => {
       x: 0,
       y: 0
     }
-
-    console.log('dodecahedron ', dodecahedron);
 
     const onMouseMove = (event) => {
       target.x = event && event.screenX / 500;
@@ -113,7 +110,20 @@ const IndexPage = () => {
       renderer.setSize(window.innerWidth, window.innerHeight);
     };
     window.addEventListener('resize', onWindowResize, false);
-  }, []);
+    const textWrapper = document.querySelector('.text');
+    textWrapper.innerHTML = textWrapper.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+
+    anime.timeline()
+      .add({
+        targets: '.text .letter',
+        translateY: [100,0],
+        translateZ: 0,
+        opacity: [0,1],
+        easing: "easeOutExpo",
+        duration: 1200,
+        delay: (el, i) => 600 + 50 * i
+      });
+    }, []);
 
   const [visible, setVisible] = useState('');
   setTimeout(() => {
@@ -177,15 +187,15 @@ const IndexPage = () => {
       <div className="content-body home">
         <div className="subsections">
           <div id="about" className="subsection about">
-            <h1><span data-text="Juliette Abeyta">Juliette Abeyta</span></h1>
+            <h1 className="text">Juliette</h1>
             <About />
           </div>
           <div id="work" className="subsection work">
-            <h2><span data-text="Things I've Made">Things I've Made</span></h2>
+            <h2>Things I've Made</h2>
             <Work />
           </div>
           <div id="contact" className="subsection contact">
-            <h2><span data-text="Get In Touch">Get In Touch</span></h2>
+            <h2>Get In Touch</h2>
             <Contact />
           </div>
         </div>
