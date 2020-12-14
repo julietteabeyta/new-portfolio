@@ -29,28 +29,6 @@ html {
   background: #ebeae9;
 }
 
-.blm {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  display: flex;
-  padding: 15px;
-  background-color: var(--color-neutral);
-  justify-content: center;
-  color: var(--color-light);
-  z-index: 1;
-  a {
-    color: var(--color-light);
-    span {
-      border-bottom: 2px solid var(--color-light);
-    }
-    &::after {
-      content: " ";
-      white-space: pre;
-    }
-  }
-}
-
 #root {
   position: relative;
 }
@@ -139,7 +117,7 @@ a {
   display: grid;
   grid-auto-flow: column;
   justify-content: space-between;
-  margin: 70px 35px 0;
+  margin: 35px;
   .nav-link {
     display: none;
   }
@@ -306,10 +284,6 @@ a {
 
   .content-body {
     margin: 0 65px 65px;
-  }
-
-  .nav {
-    margin: 70px 65px 0;
   }
 
   .back-button {

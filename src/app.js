@@ -16,7 +16,7 @@ import codepen from './images/codepen.svg';
 const IndexPage = () => {
   useEffect(() => {
     let container;
-    let camera, scene, renderer, stats;
+    let camera, scene, renderer;
     let dodecahedron;
 
     const render = () => {
@@ -131,7 +131,6 @@ const IndexPage = () => {
   }, 400);
   return (
     <Fragment>
-    <div className="blm"><a href="https://secure.actblue.com/donate/ms_blm_homepage_2019"><span>BLACK LIVES MATTER</span></a> {' '} NO JUSTICE, NO PEACE.</div>
       <div className={ `content-container ${visible}` }>
         <Fragment>
       <div className="nav">
@@ -187,7 +186,7 @@ const IndexPage = () => {
       <div className="content-body home">
         <div className="subsections">
           <div id="about" className="subsection about">
-            <h1 className="text">Juliette</h1>
+            <h1 className="text">Quick Wit <br/> True Grit</h1>
             <About />
           </div>
           <div id="work" className="subsection work">
